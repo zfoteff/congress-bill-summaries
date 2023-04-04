@@ -1,9 +1,10 @@
-import logging
 import time
 from typing import Callable
 
+from bin.logger import CongressLogger as CLog
 
-def timed(logger: logging.Logger = None) -> Callable:
+
+def timed(logger: CLog = None) -> Callable:
     """Times the duration of a function and logs it to a file. Will accept a log instance as a
     parameter, or it will create a new log file using the wrapped method as a log file name.
 
@@ -18,7 +19,7 @@ def timed(logger: logging.Logger = None) -> Callable:
             log = logger
             if log is None:
                 # Output the timing result to a file with the name of the function
-                log = logging.getLogger(wrapped_function.__name__)
+                log = CLog(wrapped_function.__name__)
 
             start_time = time.perf_counter()
             wrapped_function(*args, **kwargs)
